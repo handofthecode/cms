@@ -1,0 +1,81 @@
+div#header {
+  text-align: center;
+  background-color: lightblue;
+  border: solid;
+}
+
+div.menu {
+  background-color: black;
+  padding: .5em;
+}
+
+form.menu {
+  display: inline-block;
+  margin:0 auto;
+  text-align: center;
+  padding: .2em;
+}
+
+h1#title {
+  font-size: 2em;
+}
+h1#motto {
+  font-size: 1.3em;
+  font-style: italic;
+}
+
+button, a {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: .8em;
+  border-radius: 12px;
+}
+
+button#file {
+  background-color: darkblue;
+  font-size: 1.5em;
+  padding: 2em 1em -5em 1em;
+  margin-bottom: .2em;
+  margin-top: .5em;
+
+}
+
+button#delete {
+  background-color: red;
+}
+
+body {
+  padding: 1em;
+  font-family: sans-serif;
+}
+
+div.error {
+  padding: 10px;
+  background-color: red;
+}
+
+div.success {
+  padding: 10px;
+  background-color: green;
+}
+
+form.options {
+  display: inline;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+input, textarea {
+  display: block;
+}
+
+input.inline {
+  display: inline-block;
+}

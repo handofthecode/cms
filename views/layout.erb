@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>CMS</title>
+    <link href="<%= url('stylesheets/cms.css') %>" rel="stylesheet" type="text/css" />
+  </head>
+  
+  <body>
+    <header>
+      <div id='header'>
+        <h1 id='title'>Old Trusty's Content Managment System</h1>
+        <h1 id='motto'>"Managing your content since 1876"</h1>
+      </div>
+
+      <% if session[:error]%>
+        <div class="error">
+          <p><%= session.delete(:error) %> </p>
+        </div>
+      <% end %>
+
+      <% if session[:success]%>
+        <div class="success">
+          <p><%= session.delete(:success) %> </p>
+        </div>
+      <% end %>
+
+    </header>
+    <main>
+      <%= yield %>
+    </main>
+    <br>
+    <br>
+
+    <% if session[:username] %>
+      <form method="post" action="/sign_out">
+        <em>Signed in as <strong><%= session[:username] %></strong></em>
+        <button type="submit">Sign Out</button>
+      </form>
+    <% end %>
+
+  </body>
+</html>

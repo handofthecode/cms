@@ -1,0 +1,24 @@
+<div class="menu">
+  <form class="menu" action="/new"><button />New Document</form>
+  <form class="menu" action="/upload"><button />Upload Image</form>
+</div>
+<ul>
+  <% @files.each do |file| %>
+    <li>
+      <form action="/<%= file %>"><button id="file" /><%= file %></form>
+      
+      <div style="padding: 1em">
+
+        <% if !image_file?(file) %>
+          <form class="options" action="/<%= file %>/edit"><button>edit</form>
+        <% end %>
+
+        <form class="options" action="/<%= file %>/duplicate"><button />duplicate</form>
+        <form class="options" action="/<%= file %>/rename"><button />rename</form>
+        <form class="inline" method="post" action="/<%= file %>/delete">
+          <button id="delete" type="submit" />delete
+        </form>
+      </div>
+    </li>
+  <% end %> 
+</ul>
