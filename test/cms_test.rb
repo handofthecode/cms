@@ -67,7 +67,7 @@ class CMSTest < Minitest::Test
   def test_document_not_found
     get "/notafile.xtsd", {}, admin_session
     assert_equal 302, last_response.status
-    assert_equal "notafile.xtsd does not exist.", session[:error]
+    assert_equal "\"notafile.xtsd\" does not exist.", session[:error]
   end
 
   def test_markdown
@@ -93,7 +93,7 @@ class CMSTest < Minitest::Test
     post "/edit_test.txt", {content: "this is a test"}, admin_session
 
     assert_equal 302, last_response.status
-    assert_equal "edit_test.txt has been updated.", session[:success]
+    assert_equal "\"edit_test.txt\" has been updated", session[:success]
 
     get "/edit_test.txt"
     assert_equal 200, last_response.status
@@ -117,7 +117,7 @@ class CMSTest < Minitest::Test
   def test_post_new_document
     post "/create", {filename: "test.txt"}, admin_session
     assert_equal 302, last_response.status
-    assert_equal "test.txt has been created!", session[:success]
+    assert_equal "\"test.txt\" has been created!", session[:success]
 
     get "/"
     get last_response["Location"]
@@ -146,7 +146,7 @@ class CMSTest < Minitest::Test
     create_document "delete_me.txt"
     post "/delete_me.txt/delete", {}, admin_session
     assert_equal 302, last_response.status
-    assert_equal "delete_me.txt has been deleted", session[:success]
+    assert_equal "\"delete_me.txt\" has been deleted", session[:success]
 
     get "/"
     refute_includes last_response.body, %q(href="/delete_me.txt")
@@ -205,7 +205,7 @@ class CMSTest < Minitest::Test
   def test_duplicate_file
     post "/create", {filename: "copy_this.txt"}, admin_session
     assert_equal 302, last_response.status
-    assert_equal "copy_this.txt has been created!", session[:success]
+    assert_equal "\"copy_this.txt\" has been created!", session[:success]
 
     get "/copy_this.txt/duplicate"
     get last_response["Location"]
@@ -237,8 +237,7 @@ class CMSTest < Minitest::Test
     post "/create", {filename: "original_name.txt"}, admin_session
 
     post '/original_name.txt/rename', {title: "new_name.txt" }, admin_session
-    get last_response["Location"]
-    assert_includes last_response.body, "original_name.txt is renamed to new_name.txt"
+    assert_equal session[:success], "\"original_name.txt\" is renamed to \"new_name.txt\""
   end
 
   def test_rename_existing_filename
@@ -250,7 +249,7 @@ class CMSTest < Minitest::Test
 
   def test_format_downcase_ext
     post "/create", {filename: "big_ext.TXT"}, admin_session
-    assert_equal session[:success], "big_ext.txt has been created!"
+    assert_equal session[:success], "\"big_ext.txt\" has been created!"
   end
 
   def test_increment_filename
@@ -264,7 +263,6 @@ class CMSTest < Minitest::Test
     assert_equal 302, last_response.status
     assert_equal 'Your file has been uploaded successfully!', session[:success]
     get last_response["Location"]
-    # require 'pry'; binding.pry
     assert_includes last_response.body, "9image10.jpg"
     assert_includes last_response.body, "9image11.jpg"
     assert_includes last_response.body, "9image12.jpg"
