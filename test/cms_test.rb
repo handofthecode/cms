@@ -267,5 +267,4 @@ class CMSTest < Minitest::Test
     assert_includes last_response.body, "9image11.jpg"
     assert_includes last_response.body, "9image12.jpg"
   end
-
 end
